@@ -7,10 +7,12 @@ export declare interface ITwoButtonsContainerProps {
     firstButtonOnPress?() : void,
     firstButtonTextStyle: any,
     firstButtonText: string,
+    firstButtonMode?: "text" | "contained" | "outlined",
     secondButtonStyle: any,
     secondButtonTextStyle: any,
     secondButtonOnPress?() : void,
     secondButtonText: string,
+    secondButtonMode?: "text" | "contained" | "outlined"
 }
 
 export const TwoButtonsContainer = ( 
@@ -20,15 +22,18 @@ export const TwoButtonsContainer = (
         firstButtonOnPress, 
         firstButtonTextStyle, 
         firstButtonText, 
+        firstButtonMode,
         secondButtonOnPress, 
         secondButtonTextStyle, 
-        secondButtonText 
+        secondButtonText,
+        secondButtonStyle,
+        secondButtonMode
     } : ITwoButtonsContainerProps ) => (
     <View style={containerStyle}>
-        <Button style={firstButtonStyle} mode="contained" onPress={firstButtonOnPress}>
+        <Button style={firstButtonStyle} mode={firstButtonMode || "contained"} onPress={firstButtonOnPress}>
             <Text style={firstButtonTextStyle}>{firstButtonText}</Text>
         </Button>
-        <Button mode="text" onPress={secondButtonOnPress}>
+        <Button style={secondButtonStyle} mode={secondButtonMode || "text"} onPress={secondButtonOnPress}>
             <Text style={secondButtonTextStyle}>{secondButtonText}</Text>
         </Button>
     </View>

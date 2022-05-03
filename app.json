@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.lvarela18.RelevamientoVisual"
     },
     "web": {
       "favicon": "./assets/icon.png"

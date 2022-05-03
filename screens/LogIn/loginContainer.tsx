@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FAB } from 'react-native-paper';
 
+import { GlobalContainer } from '../../components/centeredVHContainer';
 import { logIn } from '../../services/accountService';
 import { checkCorrectEmail, checkNotEmptyFields } from '../../services/checkCredentialsService';
+import { UserContext } from '../../userContext';
 import { showToastAndroid } from '../../utils/showToastAndroid';
-import { GlobalContainer } from '../../components/centeredVHContainer';
 import { LogIn } from './login';
 import { logInDefaultMessages } from './logInMessages';
 
@@ -21,6 +22,7 @@ export const LogInContainer = ( { navigation } : any ) => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
+    const userContext = useContext( UserContext );
 
     const handleLogIn = () => {
         if ( 
@@ -29,11 +31,13 @@ export const LogInContainer = ( { navigation } : any ) => {
         ) return;
 
         logIn( email, password )
-            .then( () => {
+            .then( (user) => {
                 showToastAndroid( logInDefaultMessages.logInSuccess );
                 setEmail("");
                 setPassword("");
-                navigation.navigate( "Home" );
+                if ( !user || !user.user || !user.user.email ) return
+                userContext.setUser( user.user.email );
+                navigation.navigate( "HomeNav", { screen: "Fotografiar" } );
             } )
             .catch( unsuccessfullLogIn );
     }

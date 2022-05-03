@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
+import { globalStyle } from "../../globalStyles/globalStyles";
 
 export const styles = StyleSheet.create({
     formContainer: {
@@ -8,8 +9,6 @@ export const styles = StyleSheet.create({
         height: heightPercentageToDP('60%'),
         width: widthPercentageToDP('80%'),
         backgroundColor: '#C4C4C47F',
-        /* position: 'absolute',
-        top: widthPercentageToDP('50%') */
     },
     image: {
         width: 150,
@@ -22,13 +21,6 @@ export const styles = StyleSheet.create({
     inputTransparent: {
         backgroundColor: 'transparent'
     },
-    buttonLogIn: {
-        width: widthPercentageToDP('60%'),
-        alignSelf: 'center',
-        backgroundColor: '#D3B7547F',
-    },
-    buttonText: {
-        fontFamily: 'LeckerliOne_400Regular',
-        color: '#000000FF',
-    }
+    buttonLogIn: globalStyle.button,
+    buttonText: globalStyle.buttonText
 })
