@@ -22,12 +22,12 @@ export declare interface IFoto {
     email : string
 }
 
-export const Fotografiar = () => {
+export const Fotografiar = ( {navigation} : any ) => {
     const [foto, setFoto] = useState();
     const [mostrarCamara, setMostrarCamara] = useState<boolean>( false );
     const [tipoFoto, setTipoFoto] = useState<tipo>();
     const userContext = useContext( UserContext )
-    const user = userContext.user;
+    const user = userContext.email;
 
     const sacarFoto = ( tipo : tipo ) => {
         setTipoFoto(tipo);
@@ -56,7 +56,7 @@ export const Fotografiar = () => {
         mostrarCamara?
         <Camara settearFoto={ settearFoto }/>
         :
-        <GlobalContainer>
+        <GlobalContainer navigation={navigation} >
             <Pressable onPress={ () => sacarFoto( "Linda" ) }>
                     <Image
                         style={ { width: 300, height: 300 } }

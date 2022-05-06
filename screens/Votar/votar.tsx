@@ -17,14 +17,14 @@ declare interface IVoto {
     votador: string
 }
 
-export const Votar = () => {
+export const Votar = ( {navigation} : any ) => {
     const [images, setImages] = useState<IFoto[]>([]);
     const [voted, setVoted] = useState<IVoto[]>([]);
     const [canVote, setCanVote] = useState<boolean>(true);
     const [cargando, setCargando] = useState<boolean>(true);
     const [rating, setRating] = useState<number>(0);
     const userContext = useContext(UserContext);
-    const user = userContext.user;
+    const user = userContext.email;
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
     const imageSliderProps : IImageSliderProps = {
@@ -77,7 +77,7 @@ export const Votar = () => {
     };
 
     return (
-        <GlobalContainer>
+        <GlobalContainer navigation={navigation}>
             <View style={styles.container}>
                 <Rating
                     showRating

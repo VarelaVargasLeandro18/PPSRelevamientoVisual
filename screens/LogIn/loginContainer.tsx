@@ -36,7 +36,7 @@ export const LogInContainer = ( { navigation } : any ) => {
                 setEmail("");
                 setPassword("");
                 if ( !user || !user.user || !user.user.email ) return
-                userContext.setUser( user.user.email );
+                userContext.email = user.user.email;
                 navigation.navigate( "HomeNav", { screen: "Fotografiar" } );
             } )
             .catch( unsuccessfullLogIn );

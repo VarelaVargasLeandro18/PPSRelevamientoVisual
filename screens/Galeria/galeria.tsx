@@ -10,11 +10,11 @@ import fb from '../../utils/firebase';
 import { IFoto } from '../Fotografiar/fotografiar';
 import { styles } from './styles';
 
-export const Galeria = () => {
+export const Galeria = ( {navigation} : any ) => {
     const [images, setImages] = useState<IFoto[]>([]);
     const [cargando, setCargando] = useState<boolean>(true);
     const userContext = useContext( UserContext );
-    const user = userContext.user;
+    const user = userContext.email;
 
     useEffect( () => {
         setCargando(true);
@@ -34,7 +34,7 @@ export const Galeria = () => {
     }
 
     return (
-        <GlobalContainer>
+        <GlobalContainer navigation={navigation}>
             <View style={styles.container}>
                 {
                     cargando?
