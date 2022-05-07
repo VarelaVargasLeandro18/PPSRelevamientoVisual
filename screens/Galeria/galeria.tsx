@@ -23,6 +23,8 @@ export const Galeria = ( {navigation} : any ) => {
             setImages(values as IFoto[]);
             setCargando(false);
         } );
+
+        return () => {fb.firestore().clearPersistence();}
     }, [] );
 
     const imageSliderProps : IImageSliderProps = {

@@ -6,6 +6,7 @@ import uuid from 'react-native-uuid';
 import { GlobalContainer } from '../../components/centeredVHContainer';
 import { UserContext } from '../../userContext';
 import fb from '../../utils/firebase';
+import { showToastAndroid } from '../../utils/showToastAndroid';
 import { Camara } from '../Camara/camara';
 
 LogBox.ignoreLogs(['Setting a timer']);
@@ -49,7 +50,8 @@ export const Fotografiar = ( {navigation} : any ) => {
                 fotoURL: {uri: value},
                 tipo: tipoFoto
             }
-            await fb.firestore().collection('RelevamientoVisual').doc( docName ).set( foto );
+            await fb.firestore().collection('RelevamientoVisual').doc( (new Date()).toISOString() ).set( foto );
+            showToastAndroid( "Foto subida!" );
     }
 
     return (
@@ -58,11 +60,11 @@ export const Fotografiar = ( {navigation} : any ) => {
         :
         <GlobalContainer navigation={navigation} >
             <Pressable onPress={ () => sacarFoto( "Linda" ) }>
-                    <Image
-                        style={ { width: 300, height: 300 } }
-                        source={require('../../assets/cute_icon.png')}
-                    />
-                </Pressable>
+                <Image
+                    style={ { width: 300, height: 300 } }
+                    source={require('../../assets/cute_icon.png')}
+                />
+            </Pressable>
             <Pressable onPress={ () => sacarFoto( "Fea" ) }>
                 <Image
                     style={ { width: 300, height: 300 } }
