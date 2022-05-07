@@ -40,7 +40,7 @@ export const ImageSlider = ( {containerStyle, images, buttonsContainerStyle, but
                 </Text> :
                 <><Text style={ {alignSelf:'center', textAlign: 'center', color: 'white'} }>Usuario: {image.email}</Text>
                 <Text style={ {alignSelf:'center', textAlign: 'center', color: 'white'} }>Tipo: {image.tipo}</Text>
-                <Image style={ {width: 250, height: 250, alignSelf: 'center'} } source={ image.fotoURL } /></>
+                <Image defaultSource={ require('../../assets/placeholder.png') } style={ {width: 250, height: 250, alignSelf: 'center'} } source={ image.fotoURL } /></>
             }
             <View style={buttonsContainerStyle}>
                 <Button disabled={ images.length === 0 } onPress={ () => go(false) } style={ {...buttonStyle, maxWidth: 150} }>
