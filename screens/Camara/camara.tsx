@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-export const Camara = ( { settearFoto } : any ) => {
+export const Camara = ( { settearFoto, sacandoFoto, setSacandoFoto } : any ) => {
     const [hasPermission, setHasPermission] = useState<boolean | null>(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState<Camera | null>(null);
-    const [sacandoFoto, setSacandoFoto] = useState<boolean>(false);
   
     useEffect(() => {
       (async () => {
@@ -25,7 +24,7 @@ export const Camara = ( { settearFoto } : any ) => {
 
     return (
         <View style={styles.container}>
-          <Camera style={styles.camera} type={type} ref={ ref => { setCamera(ref) } }>
+          <Camera ratio='1:1' style={styles.camera} type={type} ref={ ref => { setCamera(ref) } }>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 disabled={sacandoFoto}
@@ -33,7 +32,7 @@ export const Camara = ( { settearFoto } : any ) => {
                 onPress={() => {
                     setSacandoFoto(true);
                     camera?.takePictureAsync()
-                        .then( ({uri}) => { setSacandoFoto(false); settearFoto(uri)} )
+                        .then( ({uri}) => { settearFoto(uri)} )
                         .catch( e => {} );
                 }}>
                 <View style={styles.take} ></View>

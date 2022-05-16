@@ -37,7 +37,7 @@ export const LogInContainer = ( { navigation } : any ) => {
                 setPassword("");
                 if ( !user || !user.user || !user.user.email ) return
                 userContext.email = user.user.email;
-                navigation.navigate( "HomeNav", { screen: "Fotografiar" } );
+                navigation.navigate( "SeleccionarCategoría" );
             } )
             .catch( unsuccessfullLogIn );
     }

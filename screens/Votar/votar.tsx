@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { ImageURISource, View } from 'react-native';
-import { ActivityIndicator, Button, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, IconButton, Text } from 'react-native-paper';
 import { Rating } from 'react-native-ratings';
 
 import { GlobalContainer } from '../../components/centeredVHContainer';
@@ -32,7 +32,7 @@ export const Votar = ( {navigation} : any ) => {
         buttonStyle: styles.button,
         buttonTextStyle: styles.buttonText,
         containerStyle: styles.imageSliderContainer,
-        images: images,
+        images: images.filter( (foto) => foto.tipo === userContext.categoria ),
         setSelectedIndex
     }
 
@@ -42,17 +42,22 @@ export const Votar = ( {navigation} : any ) => {
 
     useEffect( () => {
         setCargando(true);
-        fb.firestore().collection( 'RelevamientoVisual' ).where( 'email', '!=', user ).onSnapshot( (data) => {
-            const values  = data.docs.map( doc => doc.data() );
-            setImages(values as IFoto[]);
-            fb.firestore().collection( 'RelevamientoVisual' ).where( 'votador', '==', user ).onSnapshot( (data) => {
-                setVoted(data.docs.map( doc => doc.data() ) as IVoto[]);
-                setCargando(false);
-            } )
+        fb.firestore()
+            .collection( 'RelevamientoVisual' )
+            .where( 'email', '!=', user )
+            .onSnapshot( (data) => {
+                const values  = data.docs.map( doc => doc.data() );
+                setImages(values as IFoto[]);
+                fb.firestore().collection( 'RelevamientoVisual' ).where( 'votador', '==', user ).onSnapshot( (data) => {
+                    setVoted(data.docs.map( doc => doc.data() ) as IVoto[]);
+                    setCargando(false);
+                } )
         } );
+
+        return ( () => {fb.firestore().clearPersistence()} );
     }, [] );
 
-    useEffect( () => chequearVotado(), [voted, selectedIndex] );
+    useEffect( () => {chequearVotado()}, [voted, selectedIndex] );
 
     const chequearVotado = () => {
         const imagen = images[selectedIndex];
@@ -78,6 +83,11 @@ export const Votar = ( {navigation} : any ) => {
 
     return (
         <GlobalContainer navigation={navigation}>
+            <IconButton 
+                onPress={ () => navigation.navigate("SeleccionarCategoría") } 
+                underlayColor='#D3B7547F' 
+                style={ {position: 'absolute', top: 50, left: 5} } 
+                icon={"shape"} />
             <View style={styles.container}>
                 <Rating
                     showRating
